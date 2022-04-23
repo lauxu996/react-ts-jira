@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# React17 + React Hook + TS4 + json-server
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 创建 TS 项目
 
-## Available Scripts
+npx create-react-app [name] --template typescript
 
-In the project directory, you can run:
+## 运行项目
 
-### `npm start`
+npm start
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 配置 git commit 提交规范
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+是否符合规范，如果不符合则不允许提交
 
-### `npm test`
+1、[安装 Prettier](https://prettier.io/docs/en/install.html)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `npm install --save-dev --save-exact prettier`
 
-### `npm run build`
+- 然后，创建一个空的配置文件，以使编辑器和其他工具知道您正在使用 Prettier：`echo {}> .prettierrc.json`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- 接下来，创建一个.prettierignore 文件，让 Prettier CLI 和编辑器知道哪些文件不格式化。这是一个例子：
+  ````js
+  # Ignore artifacts:
+   build
+   coverage
+   ```
+  2、[Pre-commit Hook](https://prettier.io/docs/en/precommit.html)
+  ````
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> 注意使用 husky 之前，必须先将代码放到 git 仓库中，否则本地没有.git 文件，就没有地方去继承钩子了。
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+当您想与 Prettier 一起使用其他代码质量工具（例如 ESLint，Stylelint 等）或需要支持部分暂存文件（git add --patch）时很有用。
 
-### `npm run eject`
+devDependencies 在继续操作之前，请确保已安装 Prettier 并在其中。
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```js
+npx mrm lint-staged
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+这将安装 husky 和 lint-staged，然后在项目的配置中添加一个配置，该配置 package.json 将在预提交挂钩中自动格式化支持的文件。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+pageage.json 配置
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```js
+"lint-staged": {
+    "*.{js,css,md,ts,tsx}": "prettier --write"
+  }
+```
 
-## Learn More
+3、[安装 eslint-config-prettier](https://github.com/prettier/eslint-config-prettier)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `npm install --save-dev eslint-config-prettier`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- pageage.json 配置
+
+  ```js
+  "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest",
+        "prettier" // 增加prettier，覆盖之前一部分规则
+      ]
+    },
+  ```
+
+4、[安装 json-server](https://github.com/typicode/json-server)
+`npm i json-server -g`
+
+完全遵循 reset api 风格，可在 postman 里做增删改查
+
+- 根目录新建一个**json-server-mock**/db.json
+- 启动 json-server `json-server --watch db.json`
+- package.json 增加一项 script：
+
+  `"json-server": "json-server __json-server-mock__/db.json --watch"`
+
+  执行`npm run json-server`启动试试

@@ -1,24 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// https://www.notion.so/React-491ad0643476437cafde50bee4dde6ed
+// https://github.com/HouXingYi/JiraReactHookTS4Learn/blob/master/src/utils/index.ts
+import React from "react";
+// import logo from "./logo.svg";
+import { ProjectListScreen } from "./screens/project-list/index";
+// import { LoginScreen } from 'screens/login'
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <LoginScreen /> */}
+      <ProjectListScreen />
     </div>
   );
 }

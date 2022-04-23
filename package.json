@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "json-server": "json-server __json-server-mock__/db.json --watch --port 3001"
   },
   "eslintConfig": {
     "extends": [
@@ -29,12 +30,6 @@
       "react-app/jest",
       "prettier"
     ]
-  },
-  "devDependencies": {
-    "eslint-config-prettier": "^8.5.0",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.2"
   },
   "browserslist": {
     "production": [
@@ -47,6 +42,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.5.0",
+    "husky": "^7.0.4",
+    "json-server": "^0.17.0",
+    "lint-staged": "^12.3.7",
+    "prettier": "^2.6.2",
+    "qs": "^6.10.3"
   },
   "husky": {
     "hooks": {
